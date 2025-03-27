@@ -21,4 +21,3 @@ media/
 
 # Ignorar archivos de migraciones compilados
 **/migrations/__pycache__/
-
