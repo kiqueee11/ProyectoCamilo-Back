@@ -1,0 +1,25 @@
+Eventos.
+
+Soy un cliente que necesita una App móvil de gestión de eventos y usuarios.
+
+Debéis de tener en cuenta que, no tendréis el modelo personalizado de Usuario. De eso se encarga el equipo 2. Tendréis que reuniros con ellos para que puedan proporcionároslo cuando lo terminen. Mientras tanto, deberíais de ir avanzando con lo que viene en esta parte del proyecto. Otra cosa, el equipo 3 depende de vuestro diseño.
+
+Debéis de procurar que el diseño del front tenga consistencia, es decir, que cada vista no tengan diseños tan diferentes ya que estáis trabajando en la misma App. Os recomiendo a los que hagáis el front que creéis un Figma para realizar diseños conjuntos. 
+
+
+
+Backend:
+Modelo: nombre, descripción, fecha, ubicación, otros campos que consideréis que hagan falta.
+CRUD completo de eventos
+Validación de fechas, campos requeridos
+Panel admin para eventos
+Endpoints:
+--- GET           /events/
+--- POST         /events/
+--- GET/PUT/DELETE           /events/<id>/
+
+Frontend:
+Pantalla de login (opcional, las sesiones ya que no retornamos todavía JWT)
+Listado de eventos
+Pantalla de creación y edición de evento
+Detalle del evento
