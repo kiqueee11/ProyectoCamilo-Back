@@ -1,2 +1,24 @@
-venv
+# Ignorar archivos de caché de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar entornos virtuales
+venv/
+env/
 .env
+# Ignorar configuraciones de IDEs
+.vscode/
+.idea/
+*.swp
+
+# Ignorar bases de datos SQLite
+db.sqlite3
+
+# Ignorar archivos estáticos generados
+staticfiles/
+media/
+
+# Ignorar archivos de migraciones compilados
+**/migrations/__pycache__/
+
