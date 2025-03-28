@@ -6,10 +6,10 @@ from users.models import CustomUser
 
 class AddNewUserSerializer(serializers.ModelSerializer):
     class Meta:
-        model: CustomUser
+        model = CustomUser
         fields = '__all__'
         extra_kwargs = {
-            'password':{"write-only": True}
+            'password':{"write_only": True}
         }
 
     @staticmethod
@@ -25,9 +25,19 @@ class AddNewUserSerializer(serializers.ModelSerializer):
         return value
 
     @staticmethod
-    def validate_password(self, value):
+    def validate_password(value):
         try:
             validate_password(value)
         except ValidationError as e:
             raise serializers.ValidationError(str(e))
         return value
+
+    @staticmethod
+    def validate_values(self, data):
+        if "name" not in data or not data("name"):
+            raise serializers.ValidationError({"name": "El nombre es obligatorio"})
+        if "email" not in data or not data("email"):
+            raise serializers.ValidationError({"email": "El correo es obligatorio"})
+        if "password" not in data or not data ("password"):
+            raise serializers.ValidationError({"password": "La contraseña es obligatoria"})
+        return data
