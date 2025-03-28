@@ -33,3 +33,30 @@ class AddNewEventSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({"date": "Formato inválido"})
         return data
     
+
+
+    
+class EventDateFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['date']
+        read_only_fields = ['slug', 'created_at', 'updated_at']
+
+    def validate(self, data):
+        if not data.get('date'):
+            raise serializers.ValidationError({"message": "Date is required"})
+      
+        
+        date_value = data.get('date')
+    
+        if isinstance(date_value, str):
+            try:
+                parsed_date = datetime.strptime(date_value, '%Y-%m-%d')
+                print(parsed_date)
+                date_with_time = datetime.combine(parsed_date.date(), time(hour=9, minute=0))
+                print(date_with_time)
+                data["date"] = date_with_time
+                print(data)
+            except:
+                raise serializers.ValidationError({"date": "Formato inválido"})
+        return data
