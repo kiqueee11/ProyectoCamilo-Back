@@ -1,3 +1,5 @@
+import secrets
+
 from django.contrib.auth.base_user import BaseUserManager, AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
 from django.db import models
@@ -26,6 +28,7 @@ class CustomUserManager(BaseUserManager):
         return user
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
+    id = models.CharField(max_length=32, primary_key=True, default=secrets.token_hex(16), editable=False)
     name = models.CharField(max_length=50, verbose_name="Nombre de usuario", null=False)
     email = models.EmailField(max_length=255, unique=True, verbose_name="Correo electrónico", null=False)
     phone = models.CharField(max_length=20, unique=True, verbose_name="Número de telefono")

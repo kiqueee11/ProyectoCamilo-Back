@@ -19,6 +19,5 @@ class GetUsersView(APIView):
                 status=HTTP_400_BAD_REQUEST
             )
 
-        # Serialize the user instance
         serializer = GetUserSerializer(user)
         return Response(serializer.data, status=HTTP_200_OK)
