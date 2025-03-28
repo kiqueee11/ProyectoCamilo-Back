@@ -26,10 +26,10 @@ class CustomUserManager(BaseUserManager):
         return user
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    name = models.CharField(max_length=50, verbose_name="Nombre de usuario")
-    email = models.EmailField(max_length=255, unique=True, verbose_name="Correo electrónico")
+    name = models.CharField(max_length=50, verbose_name="Nombre de usuario", null=False)
+    email = models.EmailField(max_length=255, unique=True, verbose_name="Correo electrónico", null=False)
     phone = models.CharField(max_length=20, unique=True, verbose_name="Número de telefono")
-    password = models.CharField(max_length=150, verbose_name="Contraseña")
+    password = models.CharField(max_length=150, verbose_name="Contraseña", null=False)
     is_active = models.BooleanField(default=True, verbose_name="¿El usuario esta activo?")
     is_staff = models.BooleanField(default=False, verbose_name="Autorizado para ser staff")
     is_superuser = models.BooleanField(default=False, verbose_name="¿Es administrador?")
