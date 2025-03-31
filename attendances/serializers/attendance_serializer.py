@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from attendances.models.attendance_model import Attendance
+from users.models import CustomUser
+
 
 class AttendanceSerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,17 +11,17 @@ class AttendanceSerializer(serializers.ModelSerializer):
 
     def validate(self, data):
         attendance = data['attendances']
-        event = data['event_id']
-        user = data['user_id']
+        event_id = data['event']
+        user_id = data['user']
 
-        if not attendance or not event or not user:
+        if not attendance or not event_id or not user_id:
             raise serializers.ValidationError('Mandatory fields are missing (attendances, event, user)')
 
-        if not event:
-            raise serializers.ValidationError(f'Event not found with id: {event}')
+        if not event_id:
+            raise serializers.ValidationError(f'Event not found with id: {event_id}')
 
-        if not user:
-            raise serializers.ValidationError(f'User not found with id: {user}')
+        if not CustomUser.objects.filter(id=user_id).exists():
+            raise serializers.ValidationError(f'User not found with id: {user_id}')
 
         if not isinstance(attendance, bool):
             raise serializers.ValidationError(f'Attendance is not a boolean value')
