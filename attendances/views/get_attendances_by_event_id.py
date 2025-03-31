@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from attendances.models.attendance_model import Attendance
 from attendances.serializers import CreateAttendanceSerializer
+from attendances.serializers.get_attendance_serializer import GetAttendanceSerializer
 from events.models import Event
 
 
