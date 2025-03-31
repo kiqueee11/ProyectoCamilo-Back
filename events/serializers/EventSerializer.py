@@ -60,3 +60,28 @@ class EventDateFilterSerializer(serializers.ModelSerializer):
             except:
                 raise serializers.ValidationError({"date": "Formato inválido"})
         return data
+    
+class EventTypeFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['type']
+        read_only_fields = ['slug', 'created_at', 'updated_at']
+    
+    def validate(self,data):
+        if not data.get('type'):
+            raise serializers.ValidationError({"message": "Type is required"})
+
+        return data
+
+class EventTypeTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['title']
+        read_only_fields = ['slug', 'created_at', 'updated_at']
+    
+    def validate(self,data):
+
+        if not data.get('title'):
+                raise serializers.ValidationError({"message": "title is required"})
+
+        return data
