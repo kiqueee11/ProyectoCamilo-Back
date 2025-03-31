@@ -5,10 +5,10 @@ from users.models import CustomUser
 class UserAdmin(admin.ModelAdmin):
     model = CustomUser
 
-    list_display = ('id', 'name', 'email', 'phone', 'is_active', 'is_superuser')
+    list_display = ('id', 'name', 'email', 'phone', 'is_active', 'is_superuser', 'slug',)
     list_filter = ('is_active', 'is_superuser', 'is_staff')
     search_fields = ('name', 'email',)
-
+    readonly_fields = ("slug",)
     ordering = ('name',)
 
     list_editable = ('is_active', 'is_superuser')

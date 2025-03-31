@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 from rest_framework.views import APIView
 
+from events.models import Event
 from users.models import CustomUser
 from users.serializers.UserSerializer import GetUserSerializer
 
@@ -10,14 +11,21 @@ from users.serializers.UserSerializer import GetUserSerializer
 class GetUsersView(APIView):
     permission_classes = [AllowAny]
 
-    def get(self, request, id):
+    def get(self, request, slug):
         try:
-            user = CustomUser.objects.get(id=id)
-        except CustomUser.DoesNotExist:
+            event = Event.objects.get(slug=slug)
+        except:
             return Response(
-                {"error": "Usuario no encontrado"},
+                {"error": "Evento no encontrado"},
                 status=HTTP_400_BAD_REQUEST
             )
 
-        serializer = GetUserSerializer(user)
-        return Response(serializer.data, status=HTTP_200_OK)
+
+        users_list = [{
+            "name": users.name,
+            "email": users.email,
+        } for users in event.users.all()
+        ]
+        return Response({"users": users_list}, status=HTTP_200_OK)
+
+
