@@ -2,11 +2,12 @@ import secrets
 
 from django.db import models
 
+from events.models import Event
 from users.models import CustomUser
 
 
 class Attendance(models.Model):
-    event = models.ForeignKey('Event', on_delete=models.RESTRICT, null=True, blank=True, related_name='attendances', verbose_name='Evento')
+    event = models.ForeignKey(Event, on_delete=models.RESTRICT, null=True, blank=True, related_name='attendances', verbose_name='Evento')
     user = models.ForeignKey(CustomUser, on_delete=models.RESTRICT, null=True, blank=True, related_name='attendances', verbose_name='Usuario')
     attendance = models.BooleanField(default=False, null=False, blank=False, verbose_name="Asistencia")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creacion')
