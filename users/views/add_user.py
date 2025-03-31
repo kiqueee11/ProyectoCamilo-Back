@@ -1,47 +1,41 @@
-
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_201_CREATED
-
 from rest_framework.views import APIView
-
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
+from events.models import Event
 from users.models import CustomUser
-from users.serializers.UserSerializer import AddNewUserSerializer
 
 
-class AddNewUserView(APIView):
+class AddUserToEventView(APIView):
     permission_classes = [AllowAny]
-    def post(self, request, id):
+
+    def post(self, request, slug):
         try:
-            user = CustomUser.objects.get(id=id)
+            event = Event.objects.get(slug=slug)
         except:
             return Response(
-                {"error": "Usuario no encontrado"},
+                {"error": "Evento no encontrado"},
                 status=HTTP_400_BAD_REQUEST
             )
 
         data = request.data
-        name = data.get("name")
-        email = data.get("email")
-        phone = data.get("phone", "")
-        password = data.get("password")
-        is_active = data.get("is_active", True)
-        is_staff = data.get("is_staff", False)
-        is_superuser = data.get("is_superuser", True)
+        user_email = data.get("email")
+        try:
+            user = CustomUser.objects.get(email=user_email)
 
-        data["is_active"] = is_active
-        data["is_staff"] = is_staff
-        data["is_superuser"] = is_superuser
-
-        serializer = AddNewUserSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
+            if event.users.filter(id=user.id).exists():
+                return Response(
+                    {"message": "El usuario ya está en el evento"},
+                    status=HTTP_400_BAD_REQUEST
+                )
+            else:
+                event.users.add(user)
+                return Response(
+                    {"success": "Usuario añadido al evento"},
+                    status=HTTP_200_OK
+                )
+        except:
             return Response(
-                {"success": "Usuario creada correctamente"},
-                status=HTTP_201_CREATED
-            )
-        else:
-            return Response(
-                {"error": serializer.errors},
+                {"error": "Usuario no existe"},
                 status=HTTP_400_BAD_REQUEST
             )
