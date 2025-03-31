@@ -3,6 +3,12 @@ from events.models import Event
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.response import Response
 from datetime import datetime, time
+from django.contrib.auth import get_user_model
+
+from users.serializers.UserSerializer import GetUserSerializer
+
+User = get_user_model()
+
 class AddNewEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
@@ -59,4 +65,29 @@ class EventDateFilterSerializer(serializers.ModelSerializer):
                 print(data)
             except:
                 raise serializers.ValidationError({"date": "Formato inválido"})
+        return data
+    
+class EventTypeFilterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['type']
+        read_only_fields = ['slug', 'created_at', 'updated_at']
+    
+    def validate(self,data):
+        if not data.get('type'):
+            raise serializers.ValidationError({"message": "Type is required"})
+
+        return data
+
+class EventTypeTitleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Event
+        fields = ['title']
+        read_only_fields = ['slug', 'created_at', 'updated_at']
+    
+    def validate(self,data):
+
+        if not data.get('title'):
+                raise serializers.ValidationError({"message": "title is required"})
+
         return data
