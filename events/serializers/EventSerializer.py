@@ -3,6 +3,12 @@ from events.models import Event
 from rest_framework.status import HTTP_400_BAD_REQUEST
 from rest_framework.response import Response
 from datetime import datetime, time
+from django.contrib.auth import get_user_model
+
+from users.serializers.UserSerializer import GetUserSerializer
+
+User = get_user_model()
+
 class AddNewEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event

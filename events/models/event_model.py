@@ -1,6 +1,8 @@
 from django.db import models
 import secrets
 
+from backend.settings import AUTH_USER_MODEL
+
 
 class Event(models.Model):
     title = models.CharField(max_length=100)
