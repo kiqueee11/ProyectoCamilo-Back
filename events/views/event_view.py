@@ -60,4 +60,18 @@ class FindEventByTitleView(APIView):
             return Response({"success": "Events found", "events": event.values()}, status=HTTP_200_OK)
         else:
             return Response({"error": serializer.errors}, status=HTTP_400_BAD_REQUEST)
+
+class EditEventView(APIView):
+    def post(self, request, id):
+        data = request.data
+        event = Event.objects.filter(id=id).first()
+        if not event:
+            return Response({"error": "Evento no encontrado"}, status=HTTP_404_NOT_FOUND)
+
+        serializer = AddNewEventSerializer(event, data=data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"success": "Evento editado correctamente"}, status=HTTP_200_OK)
+        else:
+            return Response({"error": serializer.errors}, status=HTTP_400_BAD_REQUEST)
         

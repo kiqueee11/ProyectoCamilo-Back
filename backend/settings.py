@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-6%a=l8b*s0%s*fenzjjfwj$jk0a25f8lau+*pguux_qe%wnej8
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,10 +43,6 @@ INSTALLED_APPS = [
 
     'users',
     'events',
-<<<<<<< HEAD
-    
-=======
->>>>>>> origin/dev-users
 ]
 
 MIDDLEWARE = [
@@ -136,13 +132,10 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-<<<<<<< HEAD
+
 
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-=======
-AUTH_USER_MODEL = 'users.CustomUser'
 
->>>>>>> origin/dev-users
