@@ -7,5 +7,5 @@ urlpatterns = [
     path("v1/events/<slug:slug>/participants/", GetUsersView.as_view(), name="get-user"),
     path("v1/create-user/", CreateNewUserView.as_view(), name="create-user"),
     path("v1/participants/<slug:slug>/", DeleteUserView.as_view(), name="delete-user"),
-    path("v1/events/<slug:slug>/participants/", AddUserToEventView.as_view(), name="add-user-to-event")
+    path("v1/events/<slug:slug>/participants/add", AddUserToEventView.as_view(), name="add-user-to-event")
 ]
