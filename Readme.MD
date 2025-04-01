@@ -29,10 +29,8 @@
 
 
 Acceso a servidor:
-  * Conexión: ssh dam2@212.227.250.87
-  * Contraseña: x85FMQ3r8c
-
-  * ssh -L 5432:127.0.0.1:5432 dam2@212.227.250.87
+  * Conexión: ssh dam2@*********
+  * Contraseña: ********
 
   * comando: psql -U primernombre_primerapellido_dam -d primernombre_primerapellido_dam_db -W
   * contraseña: primernombre_primerapellido_dam1234
