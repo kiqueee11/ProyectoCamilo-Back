@@ -3,7 +3,6 @@ from attendances.models.attendance_model import Attendance
 from events.models import Event
 from users.models import CustomUser
 
-
 class CreateAttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
