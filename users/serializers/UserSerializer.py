@@ -49,4 +49,10 @@ class GetUserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password':{"write_only": True}
         }
+    def validate(self, data):
+        if not data.get("email"):
+            raise serializers.ValidationError({"email": "El correo es obligatorio"})
+        if not data.get("password"):
+            raise serializers.ValidationError({"password": "La contraseña es obligatoria"})
+        return data
     
