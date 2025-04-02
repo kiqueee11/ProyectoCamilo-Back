@@ -6,7 +6,7 @@ from users.models import CustomUser
 class CreateAttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
-        fields = ("id","attendance", "user", "event")
+        fields = ("attendance", "user", "event")
         read_only_fields = ('created_at', 'updated_at')
 
     def validate(self, data):
