@@ -1,5 +1,5 @@
 
-from events.views import CreateEventView
+from events.views import CreateEventView, DeleteEventView
 from django.urls import path
 from events.views import FindEventByDateView
 from events.views.event_view import EditEventView, FindEventByTitleView, FindEventByTypeView
@@ -10,4 +10,5 @@ urlpatterns = [
      path('v1/find/event/type', FindEventByTypeView.as_view(), name="find_event_by_type"),
      path('v1/find/event/title', FindEventByTitleView.as_view(), name="find_event_by_title"),
      path('v1/edit/event/<int:id>', EditEventView.as_view(), name="edit_event"),
+     path('v1/delete/event/<int:id>/', DeleteEventView.as_view(), name="delete_event"),
 ]
