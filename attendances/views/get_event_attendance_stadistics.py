@@ -8,14 +8,14 @@ from events.models import Event
 
 
 class GetEventAttendanceStadisticsView(APIView):
-    def get(self, request, event_id):
-        if not Event.objects.filter(id=event_id).exists():
+    def get(self, request, slug):
+        if not Event.objects.filter(slug=slug).exists():
             return Response(
-                {"error": f"Event not found with id: {event_id}"},
+                {"error": f"Event not found with slug: {slug}"},
                 status=HTTP_400_BAD_REQUEST)
 
-        attendance = Attendance.objects.filter(event_id__exact=event_id).all()
-        attenders = Attendance.objects.filter(event_id__exact=event_id, attendance=True).all()
+        attendance = Attendance.objects.filter(event__slug=slug).all()
+        attenders = Attendance.objects.filter(event__slug=slug, attendance=True).all()
 
         return Response(
             {"registered": len(attendance), "attenders": len(attenders),

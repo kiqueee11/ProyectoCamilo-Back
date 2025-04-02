@@ -9,13 +9,13 @@ from events.models import Event
 
 
 class GetAttendancesByEventIdView(APIView):
-    def get(self, request, event_id):
-        if not Event.objects.filter(id=event_id).exists():
+    def get(self, request, slug):
+        if not Event.objects.filter(slug=slug).exists():
             return Response(
-                {"error": f"Event not found with id: {event_id}"},
+                {"error": f"Event not found with slug: {slug}"},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
-        attendances = Attendance.objects.filter(event_id__exact=event_id).all()
+        attendances = Attendance.objects.filter(event__slug=slug).all()
         attendances_serializer = GetAttendanceSerializer(attendances, many=True)
         return Response(attendances_serializer.data, status=status.HTTP_200_OK)
