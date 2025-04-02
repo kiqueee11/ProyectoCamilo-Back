@@ -3,7 +3,6 @@ from attendances.models.attendance_model import Attendance
 from events.models import Event
 from users.models import CustomUser
 
-
 class CreateAttendanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attendance
@@ -20,6 +19,9 @@ class CreateAttendanceSerializer(serializers.ModelSerializer):
 
         if not isinstance(attendance, bool):
             raise serializers.ValidationError(f'Attendance is not a boolean value')
+
+        if Attendance.objects.filter(event=event, user=user).exists():
+            raise serializers.ValidationError(f'Attendance already exists')
 
         return data
 

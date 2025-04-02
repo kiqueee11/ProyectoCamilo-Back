@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 
 from attendances.models.attendance_model import Attendance
 from attendances.serializers import CreateAttendanceSerializer
+from attendances.serializers.get_attendance_serializer import GetAttendanceSerializer
 from events.models import Event
 
 
@@ -16,5 +17,5 @@ class GetAttendancesByEventIdView(APIView):
             )
 
         attendances = Attendance.objects.filter(event_id__exact=event_id).all()
-        attendances_serializer = CreateAttendanceSerializer(attendances, many=True)
+        attendances_serializer = GetAttendanceSerializer(attendances, many=True)
         return Response(attendances_serializer.data, status=status.HTTP_200_OK)
