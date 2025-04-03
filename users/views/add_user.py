@@ -25,7 +25,7 @@ class AddUserToEventView(APIView):
 
             if event.users.filter(id=user.id).exists():
                 return Response(
-                    {"message": "El usuario ya está en el evento"},
+                    {"error": "El usuario ya está en el evento"},
                     status=HTTP_400_BAD_REQUEST
                 )
             else:
