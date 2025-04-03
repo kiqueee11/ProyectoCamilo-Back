@@ -5,7 +5,7 @@ from users.models import CustomUser
 class UserAdmin(admin.ModelAdmin):
     model = CustomUser
 
-    list_display = ('id', 'name', 'email', 'phone', 'is_active', 'is_superuser', 'slug',)
+    list_display = ('id', 'name', 'email', 'phone', 'password', 'is_active', 'is_superuser', 'slug',)
     list_filter = ('is_active', 'is_superuser', 'is_staff')
     search_fields = ('name', 'email',)
     readonly_fields = ("slug",)
